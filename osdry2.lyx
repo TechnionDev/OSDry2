@@ -1,0 +1,374 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+OS Dry 2
+\end_layout
+
+\begin_layout Section*
+part 1:
+\end_layout
+
+\begin_layout Enumerate
+By itself, the 
+\begin_inset Formula $yes$
+\end_inset
+
+ command outputs 
+\begin_inset Formula $'y'$
+\end_inset
+
+ or whatever is specified as an argument, followed by a newline repeatedly
+ until stopped by the user or otherwise killed; when piped into a command,
+ it will continue until the pipe breaks (i.e., the program completes its execution
+).
+ However, if the user enters a string after 
+\begin_inset Formula $'yes'$
+\end_inset
+
+, yes will output the string the same as it would 
+\begin_inset Formula $'y'$
+\end_inset
+
+ similar to echo.
+ 
+\end_layout
+
+\begin_layout Enumerate
+we use the 
+\begin_inset Formula $yes$
+\end_inset
+
+ with 
+\begin_inset Formula $''$
+\end_inset
+
+to send a
+\end_layout
+
+\begin_layout Enumerate
+the 
+\begin_inset Formula $GRUB\_TIMEOUT$
+\end_inset
+
+ parameter indicates the amount of time in seconds the booting process waits
+ for a keyboard response from the user in the default menu entry.
+ The pros of increasing the waiting time are that now the user has more
+ time to choose and respond the the 
+\begin_inset Formula $GRUB$
+\end_inset
+
+, witch version of the OS to run.
+ The cons are that most of the time the user doesn't use the other OS versions
+ and he/she will need to actively choose the vanilla version in the menu
+ - quite tedious.
+\end_layout
+
+\begin_layout Enumerate
+The 
+\begin_inset Formula $execve()$
+\end_inset
+
+ is part of the standard c library and its purpose is to envelop the calling
+ of the 
+\begin_inset Formula $syscall$
+\end_inset
+
+ command - which transitions to the kernel space and execute the 
+\begin_inset Formula $do\_execve()$
+\end_inset
+
+ function which then dose the actual switch of the programs.
+ the 
+\begin_inset Formula $run\_init\_process()$
+\end_inset
+
+ function is located in the kernel space and isn't aware to the C standard
+ library (and also doesn't need to).
+ 
+\end_layout
+
+\begin_layout Enumerate
+the 
+\begin_inset Formula $syscall()$
+\end_inset
+
+ function envelops the calling of the 
+\begin_inset Formula $syscall$
+\end_inset
+
+ assembly command.
+ It receives at list one argument (the number of the system call) and any
+ number of optional arguments, depending on the system call - for example,
+ the added parameters of the sys_write system call are the address of the
+ string and its length.
+ 
+\begin_inset Newline newline
+\end_inset
+
+the 
+\begin_inset Formula $syscall()$
+\end_inset
+
+ function moves the system call number (first parameter) to the RAX register
+ and if any other parameter were added it passes them via predefined registers.
+ it call for the 
+\begin_inset Formula $syscall$
+\end_inset
+
+ assembly command and then waits to the outcome of the system call.
+ in the end the function sets back the registers and saves the result in
+ register RAX.
+ 
+\end_layout
+
+\begin_layout Enumerate
+It calls for the system call 
+\begin_inset Formula $getpid()$
+\end_inset
+
+ which corresponds to the number 39.
+ a more readable code may look like this:
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+int main(){
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+long r = getpid();
+\end_layout
+
+\begin_layout LyX-Code
+printf(
+\begin_inset Quotes eld
+\end_inset
+
+sys_hello returnd %ld
+\backslash
+n
+\begin_inset Quotes erd
+\end_inset
+
+,r);
+\end_layout
+
+\begin_layout LyX-Code
+return 0;
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+}
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+<simply checks if the the new system calls work?..
+ setting and getting the wights>
+\end_layout
+
+\begin_layout Section*
+part 2:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+answer 1&5 are correct.
+ every scheduling method that doesn't uses preemption can sofer from the
+ conveyer-belt effect - the reason is that if a long task is first one to
+ enter the system, then it blocks all of the other process that can come
+ after it - meaning there is a conveyer belt effect.
+ because the 
+\begin_inset Formula $FCFS$
+\end_inset
+
+ algorithm is a non-preemption algorithm then is also sofers from the conveyer-b
+elt effect
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+all tasks arrive at the same time
+\end_layout
+
+\begin_layout Enumerate
+their runtime is known from the beginning
+\end_layout
+
+\begin_layout Enumerate
+there is no use of IO devise
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+like discussed in the tutorial, lets say that we have two tasks (A and B).
+ task B uses some lengthy IO operation (10 sec).
+ according to Hila's suggestion, task B will rejoin the tree with the same
+ virtual-time.
+ this means that now task B will run 10 sec, while task A will 
+\begin_inset Quotes eld
+\end_inset
+
+starve
+\begin_inset Quotes erd
+\end_inset
+
+.
+ so Hila's suggestion will promote long IO operation.
+\end_layout
+
+\begin_layout Enumerate
+using a list DS will increase the time complexity from 
+\begin_inset Formula $O(log\,n)$
+\end_inset
+
+ to 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ getting the task with the minimal VT will take 
+\begin_inset Formula $O(1)$
+\end_inset
+
+, but after every insertion to the DS we will need to go through all of
+ the tasks in the list to find out where to insert the task with the updated
+ value.
+\end_layout
+
+\begin_layout Enumerate
+in case of large number of tasks in the system, with lets say same priority,
+ the quantum for etch task will be relatively small.
+ this will result in increase contact switch - which means the percentage
+ of time been spent on context switch will increase substantially and perhaps
+ will overshadow the time been spent on actual calculations.
+\end_layout
+
+\begin_layout Enumerate
+will result in increase epoch time and starvation of tasks with low priority.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
