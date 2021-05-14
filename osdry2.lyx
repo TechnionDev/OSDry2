@@ -4,7 +4,15 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass extarticle
+\begin_preamble
+\usepackage{xcolor}
+\pagecolor[rgb]{0.15,0.15,0.15} %black
+\color[rgb]{1,1,1} %grey
+
+\newfontfamily\mylistingsfont{Ubuntu Mono derivative Powerline}
+\definecolor{lbcolor}{rgb}{0.2,0.2,0.2}  
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -16,7 +24,7 @@
 \font_typewriter "default" "default"
 \font_math "auto" "auto"
 \font_default_family default
-\use_non_tex_fonts false
+\use_non_tex_fonts true
 \font_sc false
 \font_osf false
 \font_sf_scale 100 100
@@ -29,9 +37,10 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -44,6 +53,7 @@
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -55,6 +65,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 1cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 1.5cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -79,82 +93,329 @@
 OS Dry 2
 \end_layout
 
-\begin_layout Section*
-part 1:
+\begin_layout Part
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
 By itself, the 
-\begin_inset Formula $yes$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+yes
+\end_layout
+
 \end_inset
 
  command outputs 
-\begin_inset Formula $'y'$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+'y'
+\end_layout
+
 \end_inset
 
  or whatever is specified as an argument, followed by a newline repeatedly
  until stopped by the user or otherwise killed; when piped into a command,
  it will continue until the pipe breaks (i.e., the program completes its execution
 ).
- However, if the user enters a string after 
-\begin_inset Formula $'yes'$
-\end_inset
-
-, yes will output the string the same as it would 
-\begin_inset Formula $'y'$
-\end_inset
-
- similar to echo.
- 
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+If 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+yes
+\end_layout
+
+\end_inset
+
+ get an argument, then it is the argument that will be repeated rather than
+ 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+'y'
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Kinda like an 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+echo
+\end_layout
+
+\end_inset
+
+ if it was stuch in an infinite loop.
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
-we use the 
-\begin_inset Formula $yes$
+We use the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+yes
+\end_layout
+
 \end_inset
 
  with 
-\begin_inset Formula $''$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+''
+\end_layout
+
 \end_inset
 
-to send a
+ to send newlines to the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+make oldconfig
+\end_layout
+
+\end_inset
+
+ command.
+ This will discard the need for a user interaction with the process, choosing
+ the default choices.
+ In most scripts, merely entering a newline chooses the option capitalized.
+ e.g.
+ 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+are you should (Y/n): 
+\end_layout
+
+\end_inset
+
+ simply hitting enter will choose 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+y
+\end_layout
+
+\end_inset
+
+.
+ While running the command 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+make oldconfig
+\end_layout
+
+\end_inset
+
+ without the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+yes
+\end_layout
+
+\end_inset
+
+ it did the same this as if we used 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+yes
+\end_layout
+
+\end_inset
+
+.
+ I assume the script has changed or some caching has taken place and it
+ should have prompted the user for input.
 \end_layout
 
 \begin_layout Enumerate
 the 
-\begin_inset Formula $GRUB\_TIMEOUT$
-\end_inset
+\begin_inset listings
+inline true
+status open
 
- parameter indicates the amount of time in seconds the booting process waits
- for a keyboard response from the user in the default menu entry.
- The pros of increasing the waiting time are that now the user has more
- time to choose and respond the the 
-\begin_inset Formula $GRUB$
-\end_inset
+\begin_layout Plain Layout
 
-, witch version of the OS to run.
- The cons are that most of the time the user doesn't use the other OS versions
- and he/she will need to actively choose the vanilla version in the menu
- - quite tedious.
+GRUB_TIMEOUT
 \end_layout
 
+\end_inset
+
+ parameter indicates the amount of time in seconds the grub process waits
+ for the user before automagically choosing the default boot option.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The pros of increasing the timeout are that now the user has more time to
+ choose to pick a different boot option or to modify parameters in the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+grub
+\end_layout
+
+\end_inset
+
+, e.g.
+ which version of the kernel to boot with.
+\end_layout
+
+\begin_layout Standard
+The cons are that most of the time the user wants the default options (if
+ not, then the user should change the default to something else).
+ Thus, the boot time will either increase or the user will need to manually
+ interact with the grub to boot faster.
+ I usually prefer a timeout of 
+\begin_inset Formula $1$
+\end_inset
+
+ or 
+\begin_inset Formula $2$
+\end_inset
+
+ seconds for a normal installation and around 
+\begin_inset Formula $5$
+\end_inset
+
+ seconds for a virtual machine (for a virtual machine, you need to capture
+ the keyboard before being able to interact with the vm so I need more time.
+ Also, it's more rare to reboot a vm unless you actually play with the kernel
+ because you usually suspend when you're done with it).
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
+TL;LD: User space and kernel space has a different set of functions.
+ Neither space can use a function from the 
+\begin_inset Quotes eld
+\end_inset
+
+other side
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
 The 
-\begin_inset Formula $execve()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+execve()
+\end_layout
+
 \end_inset
 
  is part of the standard c library and its purpose is to envelop the calling
  of the 
-\begin_inset Formula $syscall$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall
+\end_layout
+
 \end_inset
 
  command - which transitions to the kernel space and execute the 
-\begin_inset Formula $do\_execve()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+do_execve()
+\end_layout
+
 \end_inset
 
  function which then dose the actual switch of the programs.
  the 
-\begin_inset Formula $run\_init\_process()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+run_init_process()
+\end_layout
+
 \end_inset
 
  function is located in the kernel space and isn't aware to the C standard
@@ -162,13 +423,30 @@ The
  
 \end_layout
 
+\end_deeper
 \begin_layout Enumerate
 the 
-\begin_inset Formula $syscall()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall()
+\end_layout
+
 \end_inset
 
  function envelops the calling of the 
-\begin_inset Formula $syscall$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall
+\end_layout
+
 \end_inset
 
  assembly command.
@@ -181,13 +459,29 @@ the
 \end_inset
 
 the 
-\begin_inset Formula $syscall()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall()
+\end_layout
+
 \end_inset
 
  function moves the system call number (first parameter) to the RAX register
  and if any other parameter were added it passes them via predefined registers.
  it call for the 
-\begin_inset Formula $syscall$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall
+\end_layout
+
 \end_inset
 
  assembly command and then waits to the outcome of the system call.
@@ -198,7 +492,15 @@ the
 
 \begin_layout Enumerate
 It calls for the system call 
-\begin_inset Formula $getpid()$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+getpid()
+\end_layout
+
 \end_inset
 
  which corresponds to the number 39.
@@ -206,17 +508,24 @@ It calls for the system call
 \end_layout
 
 \begin_deeper
-\begin_layout LyX-Code
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
 int main(){
 \end_layout
 
-\begin_deeper
-\begin_layout LyX-Code
-long r = getpid();
+\begin_layout Plain Layout
+
+	long r = getpid();
 \end_layout
 
-\begin_layout LyX-Code
-printf(
+\begin_layout Plain Layout
+
+	printf(
 \begin_inset Quotes eld
 \end_inset
 
@@ -229,13 +538,19 @@ n
 ,r);
 \end_layout
 
-\begin_layout LyX-Code
-return 0;
+\begin_layout Plain Layout
+
+	return 0;
 \end_layout
 
-\end_deeper
-\begin_layout LyX-Code
+\begin_layout Plain Layout
+
 }
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -244,18 +559,20 @@ return 0;
  setting and getting the wights>
 \end_layout
 
-\begin_layout Section*
-part 2:
+\begin_layout Part
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Enumerate
-\begin_inset space ~
 \end_inset
 
 
 \end_layout
 
-\begin_deeper
 \begin_layout Enumerate
 answer 1&5 are correct.
  every scheduling method that doesn't uses preemption can sofer from the
@@ -263,13 +580,22 @@ answer 1&5 are correct.
  enter the system, then it blocks all of the other process that can come
  after it - meaning there is a conveyer belt effect.
  because the 
-\begin_inset Formula $FCFS$
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+FCFS
+\end_layout
+
 \end_inset
 
  algorithm is a non-preemption algorithm then is also sofers from the conveyer-b
 elt effect
 \end_layout
 
+\begin_deeper
 \begin_layout Enumerate
 \begin_inset space ~
 \end_inset
@@ -326,16 +652,16 @@ starve
 
 \begin_layout Enumerate
 using a list DS will increase the time complexity from 
-\begin_inset Formula $O(log\,n)$
+\begin_inset Formula $O\left(\log n\right)$
 \end_inset
 
  to 
-\begin_inset Formula $O(n)$
+\begin_inset Formula $O\left(n\right)$
 \end_inset
 
 .
  getting the task with the minimal VT will take 
-\begin_inset Formula $O(1)$
+\begin_inset Formula $O\left(1\right)$
 \end_inset
 
 , but after every insertion to the DS we will need to go through all of
