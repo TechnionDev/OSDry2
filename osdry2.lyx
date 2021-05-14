@@ -10,7 +10,7 @@
 \pagecolor[rgb]{0.15,0.15,0.15} %black
 \color[rgb]{1,1,1} %grey
 
-\newfontfamily\mylistingsfont{Ubuntu Mono derivative Powerline}
+\newfontfamily\mylistingsfont{PT Mono}
 \definecolor{lbcolor}{rgb}{0.2,0.2,0.2}  
 \end_preamble
 \use_default_options true
