@@ -181,7 +181,7 @@ echo
 
 \end_inset
 
- if it was stuch in an infinite loop.
+ if it was stuck in an infinite loop.
 \end_layout
 
 \end_deeper
@@ -556,7 +556,7 @@ n
 \end_deeper
 \begin_layout Enumerate
 <simply checks if the the new system calls work?..
- setting and getting the wights>
+ setting and getting the weights>
 \end_layout
 
 \begin_layout Part
@@ -690,6 +690,100 @@ will result in increase epoch time and starvation of tasks with low priority.
 
 \begin_layout Enumerate
 \begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+the user can use large number of threads in his/hers program.
+ because all of the threads using the same memory space they will receive
+ a high weight score via the new scoring method, which result in artificially
+ prioritizing this program over the other tasks.
+ so instead of changing the weight of the task via a singular way (the value
+ of the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+NICE
+\end_layout
+
+\end_inset
+
+ parameter), the user is now able to manipulate his/hers program priority
+ via the way the code is designed.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted2.pdf
+	width 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Weight vs.
+ Nice
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+the connection between the Nice value and the weight value is 
+\begin_inset Formula 
+\[
+log_{1.23}(weight)=-1.078\cdot NICE+33.486
+\]
+
 \end_inset
 
 
