@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass extarticle
+\textclass amsart
 \begin_preamble
 \usepackage{xcolor}
 \pagecolor[rgb]{0.15,0.15,0.15} %black
@@ -14,6 +14,11 @@
 \definecolor{lbcolor}{rgb}{0.2,0.2,0.2}  
 \end_preamble
 \use_default_options true
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -90,7 +95,62 @@
 \begin_body
 
 \begin_layout Title
+
+\size giant
 OS Dry 2
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\size large
+22/05/2021
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="1">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<row topspace="2cm">
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size huge
+Dani Bondar - 206560856
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topspace="1cm">
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size huge
+Gur Telem - 206631848
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part
@@ -425,7 +485,7 @@ run_init_process()
 
 \end_deeper
 \begin_layout Enumerate
-the 
+The 
 \begin_inset listings
 inline true
 status open
@@ -449,16 +509,28 @@ syscall
 
 \end_inset
 
- assembly command.
+ assembly instruction.
  It receives at list one argument (the number of the system call) and any
  number of optional arguments, depending on the system call - for example,
- the added parameters of the sys_write system call are the address of the
- string and its length.
- 
-\begin_inset Newline newline
+ the added parameters of the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+sys_write
+\end_layout
+
 \end_inset
 
-the 
+ system call are the address and length of the string.
+ It is most commonly used to invoke syscalls that don't have a pretty wrapper.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The 
 \begin_inset listings
 inline true
 status open
@@ -470,9 +542,21 @@ syscall()
 
 \end_inset
 
- function moves the system call number (first parameter) to the RAX register
- and if any other parameter were added it passes them via predefined registers.
- it call for the 
+ function moves the system call's number (first parameter) to the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+RAX
+\end_layout
+
+\end_inset
+
+ register and if any other parameter were added it passes them via predefined
+ registers.
+ It calls the 
 \begin_inset listings
 inline true
 status open
@@ -485,11 +569,65 @@ syscall
 \end_inset
 
  assembly command and then waits to the outcome of the system call.
- in the end the function sets back the registers and saves the result in
- register RAX.
- 
+ On return, the function sets back the registers and saves the result in
+ register 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+RAX
 \end_layout
 
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The implementation of 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+syscall()
+\end_layout
+
+\end_inset
+
+ is in the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+glibc
+\end_layout
+
+\end_inset
+
+ library.
+ It is a userspace function after all.
+ Its prototype is included with 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+unistd.h
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 It calls for the system call 
 \begin_inset listings
@@ -504,7 +642,7 @@ getpid()
 \end_inset
 
  which corresponds to the number 39.
- a more readable code may look like this:
+ A more readable code may look like this:
 \end_layout
 
 \begin_deeper
@@ -520,11 +658,6 @@ int main(){
 
 \begin_layout Plain Layout
 
-	long r = getpid();
-\end_layout
-
-\begin_layout Plain Layout
-
 	printf(
 \begin_inset Quotes eld
 \end_inset
@@ -535,7 +668,7 @@ n
 \begin_inset Quotes erd
 \end_inset
 
-,r);
+, getpid());
 \end_layout
 
 \begin_layout Plain Layout
@@ -553,10 +686,122 @@ n
 
 \end_layout
 
+\begin_layout Standard
+Since the answer needs more content and I think this is explanation enough,
+ not sure what else I need to add that isn't here.
+ Maybe I can mention that the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+getpid
+\end_layout
+
+\end_inset
+
+ is assigned to syscall 
+\begin_inset Formula $39$
+\end_inset
+
+ on line 
+\begin_inset Formula $48$
+\end_inset
+
+.
+ I really don't no what else should be added here.
+ Maybe some Lorem Ipsum as a space filler: Lorem ipsum dolor sit amet, consectet
+ur adipiscing elit.
+ Nunc ac scelerisque nunc.
+ Interdum et malesuada fames ac ante ipsum primis in faucibus.
+ Donec rutrum aliquet mauris vel congue.
+ Etiam quis tortor nulla.
+ Suspendisse egestas hendrerit ipsum ac blandit.
+\end_layout
+
 \end_deeper
 \begin_layout Enumerate
-<simply checks if the the new system calls work?..
- setting and getting the weights>
+There is no file called 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+test.c
+\end_layout
+
+\end_inset
+
+.
+ The file provided was 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+test.cxx
+\end_layout
+
+\end_inset
+
+.
+ And the file tests whether the first two new syscalls, 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+get_weight
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+set_weight
+\end_layout
+
+\end_inset
+
+ work as expected for valid input as well as the default value for a process's
+ weight.
+ As part of the test, it uses the wrappers provided to us.
+ The test first checks the default weight value, then sets the weight to
+ 
+\begin_inset Formula $5$
+\end_inset
+
+ and test the change took.
+ It also tests the return value of the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+set_weight
+\end_layout
+
+\end_inset
+
+ function to be 
+\begin_inset Formula $0$
+\end_inset
+
+ for the valid parameter 
+\begin_inset Formula $5$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Part
@@ -574,12 +819,30 @@ status open
 \end_layout
 
 \begin_layout Enumerate
-answer 1&5 are correct.
- every scheduling method that doesn't uses preemption can sofer from the
+Answers 
+\begin_inset Formula $1$
+\end_inset
+
+ and 
+\begin_inset Formula $5$
+\end_inset
+
+ are correct.
+ E
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Every scheduling method that doesn't uses preemption can suffer from the
  conveyer-belt effect - the reason is that if a long task is first one to
- enter the system, then it blocks all of the other process that can come
- after it - meaning there is a conveyer belt effect.
- because the 
+ enter the system, then it blocks all of the other processes that can come
+ after it; i.e.
+ there is a conveyer belt effect.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Because the 
 \begin_inset listings
 inline true
 status open
@@ -591,32 +854,26 @@ FCFS
 
 \end_inset
 
- algorithm is a non-preemption algorithm then is also sofers from the conveyer-b
-elt effect
+ algorithm is a non-preemption algorithm then is also suffers from the conveyer-
+belt effect
 \end_layout
 
-\begin_deeper
-\begin_layout Enumerate
-\begin_inset space ~
+\begin_layout Standard
+For sane values of 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+RR
+\end_layout
+
 \end_inset
 
-
+, there's no convoy effect.
 \end_layout
 
-\begin_deeper
-\begin_layout Enumerate
-all tasks arrive at the same time
-\end_layout
-
-\begin_layout Enumerate
-their runtime is known from the beginning
-\end_layout
-
-\begin_layout Enumerate
-there is no use of IO devise
-\end_layout
-
-\end_deeper
 \end_deeper
 \begin_layout Enumerate
 \begin_inset space ~
@@ -625,20 +882,132 @@ there is no use of IO devise
 
 \end_layout
 
+\begin_deeper
 \begin_layout Enumerate
-\begin_inset space ~
+All tasks arrive at the same time
+\end_layout
+
+\begin_layout Enumerate
+Their runtime is known from the beginning
+\end_layout
+
+\begin_layout Enumerate
+A single-core system while all the jobs are serial (meaning they run from
+ beginning to the end without using IO or pausing).
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+We'll prove that 
+\begin_inset Formula $Q_{i}=\left(\frac{W_{i}}{\sum_{j}W_{j}}\right)\cdot t$
+\end_inset
+
+ with 
+\begin_inset Formula $t=sched\_latency$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Proof
+It is given that 
+\begin_inset Formula $\sum_{i}Q_{i}=t$
+\end_inset
+
+ (meaning the total of the quantums is exactly the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+sched_latency
+\end_layout
+
+\end_inset
+
+ and is constant).
+\end_layout
+
+\begin_layout Proof
+Since a process runs once per epoch and they have the same vtime after each
+ epoch, then the 
+\begin_inset Formula $\frac{c}{W_{i}}\cdot Q_{i}$
+\end_inset
+
+ is constant (i.e.
+ the virtual time we add per epoch is the same).
+\end_layout
+
+\begin_layout Proof
+So we can mark 
+\begin_inset Formula $\forall i:\frac{c}{W_{i}}\cdot Q_{i}=v$
+\end_inset
+
+.
+ So we get 
+\begin_inset Formula $Q_{i}=\frac{W_{i}}{c}v$
+\end_inset
+
+.
+ And from that we conclude 
+\begin_inset Formula 
+\[
+\sum_{i}Q_{i}=\sum_{i}\frac{W_{i}}{c}v=\frac{v}{c}\sum_{i}W_{i}=t\Longrightarrow v=\frac{t\cdot c}{\sum_{i}W_{i}}
+\]
+
+\end_inset
+
+And not, we can substitute 
+\begin_inset Formula $v$
 \end_inset
 
 
+\begin_inset Formula 
+\[
+Q_{i}=\frac{W_{i}}{\cancel{c}}\cdot\frac{t\cdot\cancel{c}}{\sum_{i}W_{i}}=
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+Q_{i}=\frac{W_{i}}{\sum_{i}W_{i}}\cdot t
+\]
+
+\end_inset
+
+Q.E.D
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+CFS
+\end_layout
+
+\end_inset
+
+ improvements
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-like discussed in the tutorial, lets say that we have two tasks (A and B).
- task B uses some lengthy IO operation (10 sec).
+\noindent
+\align left
+Like discussed in the tutorial, lets say that we have two tasks (A and B).
+ Task B uses some lengthy IO operation (10 sec).
  according to Hila's suggestion, task B will rejoin the tree with the same
  virtual-time.
- this means that now task B will run 10 sec, while task A will 
+ This means that now task B will run 10 sec, while task A will 
 \begin_inset Quotes eld
 \end_inset
 
@@ -647,11 +1016,13 @@ starve
 \end_inset
 
 .
- so Hila's suggestion will promote long IO operation.
+ So Hila's suggestion will promote long IO operation.
 \end_layout
 
 \begin_layout Enumerate
-using a list DS will increase the time complexity from 
+\noindent
+\align left
+Using a list DS will increase the time complexity from 
 \begin_inset Formula $O\left(\log n\right)$
 \end_inset
 
@@ -660,48 +1031,75 @@ using a list DS will increase the time complexity from
 \end_inset
 
 .
- getting the task with the minimal VT will take 
+ Getting the task with the minimal VT will take 
 \begin_inset Formula $O\left(1\right)$
 \end_inset
 
 , but after every insertion to the DS we will need to go through all of
- the tasks in the list to find out where to insert the task with the updated
+ the tasks in the list to find where to insert the task with the updated
  value.
 \end_layout
 
 \begin_layout Enumerate
-in case of large number of tasks in the system, with lets say same priority,
- the quantum for etch task will be relatively small.
- this will result in increase contact switch - which means the percentage
- of time been spent on context switch will increase substantially and perhaps
- will overshadow the time been spent on actual calculations.
+\noindent
+\align left
+In case of large number of tasks in the system, with lets say same priority,
+ the quantum for each task will be relatively small.
+ this will result in increased number of context switches - which means
+ the percentage of time been spent on context switch will increase substantially
+ and perhaps will overshadow the time been spent on actual calculations.
+ Or in other words, a potential big increase in the overhead.
 \end_layout
 
 \begin_layout Enumerate
-will result in increase epoch time and starvation of tasks with low priority.
+\noindent
+\align left
+Will result in increase epoch time and a potential starvation of tasks with
+ low priority.
+ Will also cause the processes to feel less responsive due to the longer
+ epoch time.
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset space ~
+\noindent
+\align left
+Will cause the difference between priorities to be less edivent on top of
+ non linear.
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+\align left
+Potential stravation of old/existing tasks due to new tasks 
+\begin_inset Quotes eld
 \end_inset
 
-
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset space ~
+cutting in line
+\begin_inset Quotes erd
 \end_inset
 
+ (this method is aka an 
+\begin_inset listings
+inline true
+status open
 
+\begin_layout Plain Layout
+
+Israeli Queue
+\end_layout
+
+\end_inset
+
+).
 \end_layout
 
 \end_deeper
 \begin_layout Enumerate
-the user can use large number of threads in his/hers program.
- because all of the threads using the same memory space they will receive
- a high weight score via the new scoring method, which result in artificially
- prioritizing this program over the other tasks.
- so instead of changing the weight of the task via a singular way (the value
+The user can use large number of threads in his/hers program.
+ Because all of the threads use the same memory space they will receive
+ a high weight score via the new scoring method, which result in prioritization
+ of this program over the other tasks.
+ So instead of changing the weight of the task via a singular way (the value
  of the 
 \begin_inset listings
 inline true
@@ -714,10 +1112,25 @@ NICE
 
 \end_inset
 
- parameter), the user is now able to manipulate his/hers program priority
- via the way the code is designed.
+ parameter), the user is now able to bypass the kernel and change the effective
+ program's priority by simply splitting the program into multiple threads.
 \end_layout
 
+\begin_deeper
+\begin_layout Standard
+In addition, assuming a user program has two threads, the core would be
+ dedicated to that user program until one all the threads but one finish.
+ This is because after a task (i.e.
+ a thread) finishes, we will run the other threads (even if they already
+ ran during this epoch.
+ Assuming they're in a ready state and alive).
+ This effectively locks a core to a single user program if it has two or
+ more threads.
+ Thus, starving ALL other tasks running on the same core (i.e.
+ CPU).
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 \begin_inset listings
 inline true
@@ -745,10 +1158,9 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\align center
 \begin_inset Graphics
-	filename pasted2.pdf
-	width 50theight%
+	filename weights_nice_graph.png
+	scale 45
 
 \end_inset
 
@@ -759,8 +1171,10 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Weight vs.
- Nice
+\begin_inset Formula $f\left(nice\right)=\log_{1.23}weight\left(nice\right)$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -778,15 +1192,63 @@ Weight vs.
 \end_layout
 
 \begin_layout Enumerate
-the connection between the Nice value and the weight value is 
+The connection between the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+nice
+\end_layout
+
+\end_inset
+
+ value and the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+weight
+\end_layout
+
+\end_inset
+
+ value is 
 \begin_inset Formula 
 \[
-log_{1.23}(weight)=-1.078\cdot NICE+33.486
+\log_{1.23}\left(weight\right)=-1.078\cdot NICE+33.486
 \]
 
 \end_inset
 
+Meaning, the 
+\begin_inset listings
+inline true
+status open
 
+\begin_layout Plain Layout
+
+weight
+\end_layout
+
+\end_inset
+
+ decreases exponentially with the 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+nice
+\end_layout
+
+\end_inset
+
+ value.
 \end_layout
 
 \end_deeper
